@@ -1,0 +1,34 @@
+<div class="card text-center">
+    <div class="card-header">
+        <div class="panel-heading">
+            <label class="col-md-3 control-label" for="file">Category:</label>
+            <h1 class="panel-category "> {{ note.category }}</h1>
+        </div>
+
+    </div>
+    <div class="card-body">
+        <div class="panel-heading">
+            <label class="col-md-3 control-label" for="file">Title:</label>
+            <h2 class="panel-title ">  {{ note.title }}</h2>
+        </div>
+        <div class="panel-body">
+            <label class="col-md-3 control-label" for="file">Note :</label>
+            <p> {{ note.description }}</p>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-primary" id="btn-edit" data-id="{{ note.uniqueId }}"><i class="fa fa-edit">
+                        Edit</i></button>
+            </div>
+             <div class="col-md-6">
+                <button class="btn  btn-danger" id="btn-delete" data-id="{{ note.uniqueId }}"><i class="fa fa-trash">
+                        Delete</i></button>
+            </div>
+            
+        </div>
+    </div>
+    <div class="card-footer text-muted">
+        Posted: <em class="text-muted">{{timeago image.timestamp }}</em>
+    </div>
+</div>

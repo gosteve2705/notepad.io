@@ -1,0 +1,60 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Create A Note
+        </h3>
+    </div>
+
+    <form method="post" action="/notes/create" enctype="multipart/form-data">
+        <div class="panel-body form-horizontal">
+            <div class="form-group col-md-12">
+                <label class="col-sm-2 control-label" for="category">Choose Category:</label>
+                <div class="col-md-10">
+                  <select id="category" class="form-control">
+       <option selected>Choose a category</option>
+       <option>Work</option>
+       <option>Business</option>
+       <option>Tutorial</option>
+       <option>Code</option>
+     </select>
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <label class="col-md-2 control-label" for="title">Title:</label>
+                <div class="col-md-10">
+                    <input class="form-control" type="text" name="title">
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <label class="col-md-2 control-label" for="content">Content:</label>
+                <div class="col-md-10">
+                    <textarea class="form-control" name="content" rows="4"></textarea>
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <div class="col-md-12 text-right">
+                    <button type="submit" id="login-btn" class="btn btn-success" type="button">
+                        <i class="fa fa-plus-square ">
+                        </i> Add Note</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">
+            Newest Notes
+        </h3>
+    </div>
+    <div class="panel-body">
+        {{#each notes}}
+        <div class="col-md-4 text-center" style="padding-bottom:
+ 1em;"><a href="/notes/{{ uniqueId }}"><img src="/public/upload/{{filename}}" alt="{{title}}"
+                    style="width: 175px; height: 175px;" class="img-
+ thumbnail"></a></div>
+        {{/each}}
+    </div>
+</div>
