@@ -1,3 +1,4 @@
+var mkdir = require('mkdirp');
 module.exports = {
   index: function (req, res) {
     var viewModel = {
@@ -19,6 +20,20 @@ module.exports = {
     console.log(req.body)
     var savenote = function () {
       /* parse the submitted form , get the category,title and content. */
+      var category = req.body.category,
+      title = req.body.title,
+      content = req.body.content;
+      
+      mkdir('/tmp/foo/bar/baz' + category,  function(err) { 
+
+        if (err){
+          console.log(err);
+        }else{
+          console.log(category + ' path created ')
+        }
+    
+    }, -m);
+
     };
     savenote();
   },
