@@ -1,39 +1,55 @@
-var mkdir = require('mkdirp');
+var fs = require("fs");
+var path = require("path");
 module.exports = {
   index: function (req, res) {
     var viewModel = {
       note: {
         uniqueId: 1,
-        category: 'Work',
+        category: "Work",
         title: "Sample note 1",
         description: "This is a sample.",
         filename: "sample1.txt",
         views: 10,
-      
+
         timestamp: Date.now(),
-      }
-      
+      },
     };
     res.render("note", viewModel);
   },
   create: function (req, res) {
-    console.log(req.body)
+    console.log(req.body);
     var savenote = function () {
       /* parse the submitted form , get the category,title and content. */
       var category = req.body.category,
-      title = req.body.title,
-      content = req.body.content;
-      
-      mkdir('/tmp/foo/bar/baz' + category,  function(err) { 
+        title = req.body.title,
+        content = req.body.content;
 
-        if (err){
-          console.log(err);
-        }else{
-          console.log(category + ' path created ')
+      //   fs.mkdir(path.join(__dirname, '../public/Notes/' + category), (err) => {
+      //     if (err) {
+      //         return console.error(err);
+      //     }
+      //     console.log('Directory created successfully!');
+      // });
+
+      const note = {
+        category: category,
+        title: title,
+        content: content,
+      };
+
+      let notedata = JSON.stringify(note);
+
+      fs.writeFile(
+        path.resolve(`./public/Notes/` + title + ".json"),
+        notedata,
+        (err) => {
+          if (err) console.log(err);
+          else {
+            console.log("File written successfully\n");
+            console.log("The written has the following contents:");
+          }
         }
-    
-    }, -m);
-
+      );
     };
     savenote();
   },
