@@ -47,6 +47,7 @@ module.exports = {
           else {
             console.log("File written successfully\n");
             console.log("The written has the following contents:");
+            res.redirect("/notes/"+title + ".json" );
           }
         }
       );
