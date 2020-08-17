@@ -1,6 +1,7 @@
 var fs = require("fs");
 var path = require("path");
 module.exports = {
+  //retrieve a single specific note
   index: function (req, res) {
     var viewModel = {
       note: {
