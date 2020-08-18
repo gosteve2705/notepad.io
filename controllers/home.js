@@ -1,5 +1,5 @@
 var sidebar = require("../helpers/sidebar"),
-  NoteModel = require("../models").Note;
+  NoteModel = require("../models/note");
 module.exports = {
   index: function (req, res) {
     var viewModel = {
