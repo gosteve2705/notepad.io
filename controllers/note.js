@@ -1,21 +1,39 @@
-var fs = require("fs");
-var path = require("path");
+var fs = require("fs"),
+  path = require("path"),
+  sidebar = require("../helpers/sidebar"),
+  Models = require("../models");
 module.exports = {
   //retrieve a single specific note
   index: function (req, res) {
     var viewModel = {
-      note: {
-        uniqueId: 1,
-        category: "Work",
-        title: "Sample note 1",
-        description: "This is a sample.",
-        filename: "sample1.txt",
-        views: 10,
-
-        timestamp: Date.now(),
-      },
+      note: {},
     };
-    res.render("note", viewModel);
+    // find the note by searching the filename matching the url
+    parameter: Models.note.findOne(
+      { filename: { $regex: req.params.note_id } },
+      function (err, note) {
+        if (err) {
+          throw err;
+        }
+        if (note) {
+          // if the note was found, increment its views counter
+          note.views = note.views + 1;
+          // save the note object to the viewModel:
+          viewModel.note = note;
+          // save the model (since it has been updated):
+          note.save();
+          // build the sidebar sending along the viewModel:
+          sidebar(viewModel, function (viewModel) {
+            // render the page view with its viewModel:
+            res.render("note", viewModel);
+          });
+        } else {
+          // if no note was found, simply go back to the homepage:
+          res.redirect("/");
+        }
+      }
+    );
+    
   },
   create: function (req, res) {
     console.log(req.body);
@@ -48,7 +66,7 @@ module.exports = {
           else {
             console.log("File written successfully\n");
             console.log("The written has the following contents:");
-            res.redirect("/notes/"+title + ".json" );
+            res.redirect("/notes/" + title + ".json");
           }
         }
       );
